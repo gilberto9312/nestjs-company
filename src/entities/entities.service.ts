@@ -10,24 +10,24 @@ import { Entity, EntityDocument} from './schema/entity.scheme'
 export class EntitiesService {
   constructor(@InjectModel(Entity.name) private readonly entityModel: Model< EntityDocument >) {}
 
-  create(createEntityDto: CreateEntityDto) {
+  async create(createEntityDto: CreateEntityDto ): Promise < EntityDocument > {
     const entity = new this.entityModel(createEntityDto)
     return entity.save()
   }
 
-  findAll() {
+  async findAll() : Promise < EntityDocument[] > {
     return this.entityModel.find().exec()
   }
 
-  findOne(id: number) {
+  async findOne(id: number) : Promise < EntityDocument >{
     return this.entityModel.findById(id)
   }
 
-  update(id: number, updateEntityDto: UpdateEntityDto) {
+  async update(id: number, updateEntityDto: UpdateEntityDto) : Promise < EntityDocument >{
     return this.entityModel.findByIdAndUpdate(id, updateEntityDto)
   }
 
-  remove(id: number) {
+  async remove(id: number) : Promise < EntityDocument > {
     return this.entityModel.findByIdAndDelete(id)
   }
 }

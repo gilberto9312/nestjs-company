@@ -9,25 +9,25 @@ import { Product, ProductDocument } from './schema/products.schema';
 export class ProductsService {
   constructor(@InjectModel(Product.name) private readonly productModel: Model < ProductDocument > ) {}
 
-  create(createProductDto: CreateProductDto) {
+  async create(createProductDto: CreateProductDto) : Promise < ProductDocument > {
     const product = new this.productModel(createProductDto)
     return product.save();
   }
 
-  findAll() {
+  async findAll() : Promise < ProductDocument[] >{
     return this.productModel.find().exec()
   }
 
-  findOne(id: string) {
+  async findOne(id: string) : Promise < ProductDocument >{
     return this.productModel.findById(id)
   }
 
-  update(id: string, updateProductDto: UpdateProductDto) {
+  async update(id: string, updateProductDto: UpdateProductDto) : Promise < ProductDocument > {
     return this.productModel.findByIdAndUpdate(id, updateProductDto)
     
   }
 
-  remove(id: string) {
+  async remove(id: string) {
     return this.productModel.findByIdAndRemove(id);
   }
 }

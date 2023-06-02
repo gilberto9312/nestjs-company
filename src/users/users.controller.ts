@@ -9,13 +9,14 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  async create(@Body('password') password: string, @Body('email') email: string) {
+  async create(@Body('password') password: string, @Body('email') email: string, @Body('role') role: string) {
 
     const saltOrRounds = 10;
         const hashedPassword =  await bcrypt.hash(password, saltOrRounds);
         const result =  await this.usersService.create(
             email,
             hashedPassword,
+            role
         );
         return result;
   }
@@ -27,7 +28,7 @@ export class UsersController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+    return this.usersService.findOne(id);
   }
 
   @Patch(':id')

@@ -10,10 +10,11 @@ import { User, UserDocument } from "./scheme/users.scheme";
 export class UsersService {
   constructor(@InjectModel(User.name) private readonly userModel: Model< UserDocument >){}
 
-  async create(email: string, password: string): Promise<UserDocument> {
+  async create(email: string, password: string, role: string): Promise<UserDocument> {
     return this.userModel.create({
                                     email,
                                     password,
+                                    role
                                 });
   }
 
@@ -21,8 +22,8 @@ export class UsersService {
     return `This action returns all users`;
   }
 
-  async findOne(id: number) : Promise <UserDocument> {
-    return this.userModel.findById(id)
+  async findOne(email: string) : Promise <UserDocument> {
+    return this.userModel.findOne({email})
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

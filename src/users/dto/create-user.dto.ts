@@ -1,2 +1,12 @@
 import { User } from "../entities/user.entity";
-export class CreateUserDto {}
+import { ApiProperty } from '@nestjs/swagger';
+import { Role } from "src/auth/roles.enum";
+
+export class CreateUserDto {
+    @ApiProperty()
+    email: string;
+    @ApiProperty()
+    password: string;
+    @ApiProperty()
+    role: Role[];
+}

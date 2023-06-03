@@ -1,7 +1,11 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Role } from "src/auth/roles.enum";
 
 export class User {
-    email: string;
-    password: string;
-    role: Role[];
+        @ApiProperty({ example: 'example@example.com', description: 'user email' })
+        email: string;
+        @ApiProperty({ example: 'example', description: 'user password' })
+        password: string;
+        @ApiProperty({ example: Role, description: 'user role' })
+        role: Role[];
 }
